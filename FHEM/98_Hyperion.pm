@@ -155,7 +155,7 @@ sub Hyperion_Undef($$)
   RemoveInternalTimer($hash);
   BlockingKill($hash->{helper}{RUNNING_PID}) if ($hash->{helper}{RUNNING_PID});
   DevIo_CloseDev($hash);
-  return;                  
+  return;
 }
 
 sub Hyperion_list2array($$)
