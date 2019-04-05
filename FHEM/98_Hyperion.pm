@@ -150,7 +150,7 @@ sub Hyperion_OpenDev($)
 }
 
 sub Hyperion_Undef($$)
-{                     
+{
   my ($hash,$name) = @_;
   RemoveInternalTimer($hash);
   BlockingKill($hash->{helper}{RUNNING_PID}) if ($hash->{helper}{RUNNING_PID});
