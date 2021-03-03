@@ -162,7 +162,7 @@ sub Hyperion_list2array($$)
 {
   my ($list,$round) = @_;
   my @arr;
-  foreach my $part (split /,/,$list)
+  for my $part (split /,/,$list)
   {
     $part = sprintf($round,$part) * 1;
     push @arr,$part;
@@ -265,7 +265,7 @@ sub Hyperion_Read($)
     my $effects     = $data->{effects} ? $data->{effects} : undef;
     if ($hash->{helper}{customeffects})
     {
-      foreach my $eff (@{$hash->{helper}{customeffects}})
+      for my $eff (@{$hash->{helper}{customeffects}})
       {
         push @{$effects},$eff;
       }
@@ -320,7 +320,7 @@ sub Hyperion_Read($)
     {
       my $effname;
       my $tempname;
-      foreach my $e (@$effects)
+      for my $e (@$effects)
       {
         if ($e->{script} && $e->{script} eq $script)
         {
@@ -330,7 +330,7 @@ sub Hyperion_Read($)
       }
       if (!$effname)
       {
-        foreach my $e (@{$hash->{helper}{customeffects}})
+        for my $e (@{$hash->{helper}{customeffects}})
         {
           $effname = $e->{name} if (JSON->new->convert_blessed->canonical->encode($e->{args}) eq $effargs);
         }
@@ -420,7 +420,7 @@ sub Hyperion_GetConfigs_finished($)
   my $dir = AttrVal($name,"hyperionConfigDir","/etc/hyperion/");
   delete $hash->{helper}{RUNNING_PID};
   my @filelist;
-  foreach (@files)
+  for (@files)
   {
     my $file = $_;
     next if ($file !~ /^([\-\.\w]+)\.config\.json$/);
@@ -471,7 +471,7 @@ sub Hyperion_ExecCmd($)
   my @qx = qx($cmd);
   my @ret;
   my $re = "";
-  foreach (@qx)
+  for (@qx)
   {
     chomp $_;
     $_ =~ s/[\s\t\| ;]{1,}/ /g;
@@ -726,7 +726,7 @@ sub Hyperion_Set($@)
     my $ce  = $hash->{helper}{customeffects};
     if (!$arg && $ce)
     {
-      foreach my $eff (@{$ce})
+      for my $eff (@{$ce})
       {
         if ($eff->{name} eq $value)
         {
@@ -873,7 +873,7 @@ sub Hyperion_Set($@)
     return "Value of $cmd has to be a name like My_custom_EffeKt1 or my-effect!" if (!defined $value || $value !~ /^[a-zA-Z0-9_-]+$/);
     return "Effect with name $value already defined! Please choose a different name!" if (grep(/^$value$/,split /,/,ReadingsVal($name,".effects","")));
     my $eff  = ReadingsVal($name,"effect","");
-    foreach my $e (@{$hash->{helper}{customeffects}})
+    for my $e (@{$hash->{helper}{customeffects}})
     {
       return "The base effect can't be a custom effect! Please set a non-custom effect first!" if ($e->{name} eq $eff);
     }
@@ -943,7 +943,7 @@ sub Hyperion_Attr(@)
         my @effs;
         if (@custeffs > 1)
         {
-          foreach my $eff (@custeffs)
+          for my $eff (@custeffs)
           {
             push @effs,eval{decode_json $eff};
           }
